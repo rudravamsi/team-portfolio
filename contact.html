@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Team Portfolio</title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      background: #eef2f7;
+      color: #333;
+    }
+
+    header {
+      background: #004aad;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .contact-container {
+      background: #fff;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 25px 35px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #004aad;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      background: #004aad;
+      color: #fff;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-top: 15px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #003580;
+    }
+
+    footer {
+      background: #004aad;
+      color: #fff;
+      text-align: center;
+      padding: 12px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    #success-message, #error-message {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    #success-message {
+      color: green;
+      display: none;
+    }
+
+    #error-message {
+      color: red;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .contact-container {
+        padding: 15px 20px;
+        margin: 20px 10px;
+      }
+      input, textarea, select, button {
+        font-size: 14px;
+      }
+      footer {
+        position: static;
+      }
+    }
+
+    noscript #no-js-message {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Contact Us</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="rudra.html">Rudra</a>
+      <a href="yashvitha.html">Yashvitha</a>
+      <a href="anurag.html">Anurag</a>
+      <a href="siddhu.html">Siddhu</a>
+    </nav>
+  </header>
+
+  <div class="contact-container">
+    <form action="/no-js-fallback" onsubmit="return sendMessage(event)" aria-labelledby="form-title">
+      <h2 id="form-title">Get in Touch</h2>
+      <div id="no-js-message" style="display: none; color: red; text-align: center;">
+        Please enable JavaScript to submit the form.
+      </div>
+      <div id="success-message" role="alert">Message sent successfully!</div>
+      <div id="error-message">Please correct the errors in the form.</div>
+
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required aria-required="true" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required aria-required="true" />
+
+      <label for="member">Contacting Member</label>
+      <select id="member" name="member" required aria-required="true">
+        <option value="">-- Select a Team Member --</option>
+        <option value="rudra">Rudra Vamsi</option>
+        <option value="yashvitha">Komati Yashvitha</option>
+        <option value="anurag">Anurag Reddy</option>
+        <option value="siddhu">Siddhu </option>
+      </select>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="4" placeholder="Type your message here..." required aria-required="true"></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <footer>
+    © 2025 Team Portfolio | Built by Rudra, Yashvitha, Anurag & Siddhu
+  </footer>
+
+  <script defer>
+    function sendMessage(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const email = document.getElementById("email").value.trim();
+      const member = document.getElementById("member").value;
+      const message = document.getElementById("message").value.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const successMessage = document.getElementById("success-message");
+      const errorMessage = document.getElementById("error-message");
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errorMessage.textContent = "Please enter a valid email address.";
+        errorMessage.style.display = "block";
+        successMessage.style.display = "none";
+        return false;
+      }
+
+      if (!name || !member || !message) {
+        errorMessage.textContent = "Please fill out all required fields.";
+        errorMessage.style.display = "block";
+        successMessage.style.display = "none";
+        return false;
+      }
+
+      errorMessage.style.display = "none";
+      successMessage.textContent = `Thank you, ${name}! Your message has been sent to ${member.toUpperCase()}.`;
+      successMessage.style.display = "block";
+      document.querySelector("form").reset();
+      setTimeout(() => {
+        successMessage.style.display = "none";
+      }, 3000);
+      return false;
+    }
+  </script>
+</body>
+</html>
